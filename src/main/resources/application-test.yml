@@ -1,0 +1,14 @@
+spring:
+
+  web:
+    error:
+      include-message: always
+      include-path: always
+      include-stacktrace: always
+      include-binding-errors: always
+      include-exception: true
+
+custom:
+  jwt:
+    secret: chiaveAbbastanzaLungaDaCodificareUnTokenJwtPEROINTEST
+    expiration: 360000
