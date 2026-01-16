@@ -1,0 +1,35 @@
+type Utente{
+    id:ID!
+    name: String
+    cognome: String
+    email: String
+    dataNascita: String
+    automobiliPossedute: [Automobile]
+}
+
+type Automobile{
+    id:ID!
+    marca: String
+    modello: String
+    colore: String
+    proprietario: Utente!
+}
+
+type Query{
+    findUtenteById(id: ID!): Utente
+    findAutomobileByID(id: ID!):Automobile
+    findAllAutomobileByProprietarioId(ids:[ID!]!):[Automobile]
+}
+
+input RegistraUtente{
+    nome:String!
+    cognome:String!
+    email:String!
+    dataNascita:String!
+    password:String!
+}
+
+type Mutation{
+    registraUtente(input: RegistraUtente!): Int
+}
+

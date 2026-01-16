@@ -1,6 +1,10 @@
 package dev.antoniogrillo.primoprogettospring.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,12 +25,19 @@ public class Utente implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(unique = true,nullable = false)
+    @NotBlank(message = "Il nome non può essere vuoto")
+    @Column(nullable = false)
     private String nome;
+    @NotBlank(message = "il cognome non puo essere vuto")
     private String cognome;
+    @NotNull(message = "L'email non può essere vuota")
+    @Email(message = "Devi inserire un indirizzo email valido")
     private String email;
+    @NotBlank(message = "La password non può essere vuota")
     private String password;
+    @Past(message = "Non puoi essere nato nel futuro")
     private LocalDate dataNascita;
+    @NotNull(message = "Il ruolo non può essere vuoto")
     private Ruolo ruolo;
     @Transient
     private int anni;

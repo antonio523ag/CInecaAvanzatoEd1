@@ -1,9 +1,14 @@
 package dev.antoniogrillo.primoprogettospring.service.def;
 
-import dev.antoniogrillo.primoprogettospring.dto.internal.LoginResponse;
-import dev.antoniogrillo.primoprogettospring.dto.request.LoginRequestDTO;
-import dev.antoniogrillo.primoprogettospring.dto.response.UtenteDTO;
+import dev.antoniogrillo.primoprogettospring.entity.Utente;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public interface UtenteService {
-    LoginResponse login(LoginRequestDTO request);
+    Utente login(@NotNull(message = "devi inserire una email") String email,@NotEmpty(message = "devi inserire una password") String password);
+
+    Utente creaUtente(@Valid Utente utente);
+
+    Utente getUtenteById(Long id);
 }

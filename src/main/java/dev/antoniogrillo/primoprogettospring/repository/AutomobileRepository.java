@@ -21,4 +21,6 @@ public interface AutomobileRepository extends JpaRepository<Automobile, Long> {
 
     Page<Automobile> findByProprietario_Id(long id, Pageable pageable);
 
+    List<Automobile> findAllByProprietario_IdIn(List<Long> ids);
+
 }

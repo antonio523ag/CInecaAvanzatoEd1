@@ -4,19 +4,24 @@ import dev.antoniogrillo.primoprogettospring.dto.request.Param;
 import dev.antoniogrillo.primoprogettospring.dto.response.AutomobileDTO;
 import dev.antoniogrillo.primoprogettospring.dto.response.CustomPage;
 import dev.antoniogrillo.primoprogettospring.entity.Automobile;
+import dev.antoniogrillo.primoprogettospring.exception.GraphQLException;
 import dev.antoniogrillo.primoprogettospring.mapper.AutomobileMapper;
 import dev.antoniogrillo.primoprogettospring.mapper.CustomPageMapper;
 import dev.antoniogrillo.primoprogettospring.repository.AutomobileRepository;
 import dev.antoniogrillo.primoprogettospring.repository.CriteriaAutomobileRepository;
 import dev.antoniogrillo.primoprogettospring.service.def.AutomobileService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +32,7 @@ public class AutomobileServiceImpl implements AutomobileService {
     private final CustomPageMapper customPageMapper;
     private final CriteriaAutomobileRepository criteriaRepo;
 
+
     @Override
     public CustomPage<AutomobileDTO> findAll(int numeroPagina) {
         Sort s=Sort.by("marca").ascending().and(Sort.by("modello").ascending());
@@ -35,6 +41,28 @@ public class AutomobileServiceImpl implements AutomobileService {
         List<AutomobileDTO> l=mapper.toAutomobileDTO(page.getContent());
 
         return customPageMapper.toCustomPage(l,numeroPagina,page.getTotalPages());
+    }
+
+    @Override
+    public Optional<Automobile> getAutomobileById(long idAutomobile) {
+        return repo.findById(idAutomobile);
+    }
+
+    @Override
+    public void updateAutomobile(Automobile a) {
+        repo.save(a);
+    }
+
+    @Override
+    @Transactional
+    public void salva(Automobile a) {
+
+        repo.save(a);
+    }
+
+    @Override
+    public List<Automobile> findAutomobileByIDProprietario(List<Long> ids) {
+        return repo.findAllByProprietario_IdIn(ids);
     }
 
     public List<Automobile> findByNomeUtenteAndMarca(String nome,String marca){

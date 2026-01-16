@@ -30,6 +30,8 @@ public class ConfigratorePath {
                         .requestMatchers("/utente/**").authenticated()
                         .requestMatchers("/superadim/**").hasRole(Ruolo.SUPERADMIN.name())
                         .requestMatchers("/admin/**").hasAnyRole(Ruolo.ADMIN.name(),Ruolo.SUPERADMIN.name())
+                        .requestMatchers("/graphiql").permitAll()
+                        .requestMatchers("/graphql").authenticated()
                         .anyRequest().authenticated()
                 ).authenticationProvider(provider)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

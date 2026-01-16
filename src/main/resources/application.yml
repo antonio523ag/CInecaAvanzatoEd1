@@ -11,3 +11,7 @@ spring:
     show-sql: true
   profiles:
     active: test
+
+  graphql:
+    graphiql:
+      enabled: true

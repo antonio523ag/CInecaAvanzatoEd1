@@ -8,4 +8,4 @@ spring:
 custom:
   jwt:
     secret: chiaveAbbastanzaLungaDaCodificareUnTokenJwt
-    expiration: 3600
+    expiration: 3600000

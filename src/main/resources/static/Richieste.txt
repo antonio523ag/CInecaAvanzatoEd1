@@ -38,3 +38,6 @@ gli utenti admin
 	rimuovere recensioni
 	rimuovere un singolo utente
 	creare un utente admin
+
+aggiungere la validation su tutte le request che prendono parametri
+creare un endpoint graphql che esponga tutti i servizi che aveva l'utente loggato
