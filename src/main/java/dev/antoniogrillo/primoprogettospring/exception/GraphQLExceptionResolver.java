@@ -27,10 +27,10 @@ public class GraphQLExceptionResolver extends DataFetcherExceptionResolverAdapte
                     .errorType(ErrorType.BAD_REQUEST)
                     .build();
         }
-        if(ex instanceof GraphQLException){
+        if(ex instanceof GraphQLException e){
             return GraphqlErrorBuilder.newError(env)
                     .message(ex.getMessage())
-                    .errorType(ErrorType.BAD_REQUEST)
+                    .errorType(e.getCode())
                     .build();
         }
 
